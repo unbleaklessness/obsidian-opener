@@ -32,9 +32,12 @@ class UDPService : Service() {
                     val message = String(packet.data, 0, packet.length)
                     val json = JSONObject(message)
                     json.getString("filePath").let {
+                        val openMode = json.optString("openMode", "true")
+                        val line = json.optInt("line", 1)
+                        val viewMode = json.optString("viewMode", "live")
                         val encoded: String = Uri.encode(it)
                         Handler(Looper.getMainLooper()).post {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("obsidian://advanced-uri?filepath=${encoded}"))
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("obsidian://advanced-uri?filepath=${encoded}&openmode=${openMode}&viewmode=${viewMode}&line=${line}"))
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)
                         }
