@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
 
     <application
         android:allowBackup="true"
@@ -14,9 +15,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ObsidianOpener"
+        android:launchMode="singleTop"
         tools:targetApi="31">
 
-        <service android:name=".UDPService"/>
+        <service
+            android:name=".UDPService"
+            android:foregroundServiceType="dataSync"/>
 
         <activity
             android:name=".MainActivity"
